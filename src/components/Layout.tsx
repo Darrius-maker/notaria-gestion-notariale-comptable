@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Outlet, Link, useLocation, useNavigate } from "react-router-dom";
 import { User, Dossier, Tiers } from "../types";
 import { LayoutDashboard, FolderOpen, Calculator, Users, LogOut, Search, X, FileText, UserCircle, Calendar, Receipt, FileSpreadsheet, ScrollText, Building2, BarChart3 } from "lucide-react";
