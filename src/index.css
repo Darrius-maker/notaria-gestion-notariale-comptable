@@ -1,0 +1,105 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=JetBrains+Mono:wght@400;500&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Playfair Display", serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  /* Ordre des Notaires du Burkina Faso - Palette de couleurs */
+
+  /* Bleu Principal (depuis le logo) */
+  --color-notaire-900: #1e3a5f;
+  --color-notaire-800: #1e3a8a;
+  --color-notaire-700: #1e40af;
+  --color-notaire-600: #2563eb;
+  --color-notaire-500: #3b82f6;
+  --color-notaire-400: #60a5fa;
+  --color-notaire-300: #93c5fd;
+  --color-notaire-200: #bfdbfe;
+  --color-notaire-100: #dbeafe;
+  --color-notaire-50: #eff6ff;
+
+  /* Or/Jaune - Accent (couleurs nationales) */
+  --color-or-600: #ca8a04;
+  --color-or-500: #eab308;
+  --color-or-400: #facc15;
+  --color-or-300: #fde047;
+  --color-or-100: #fef9c3;
+  --color-or-50: #fefce8;
+
+  /* Vert - Succès (couleurs nationales) */
+  --color-burkina-vert: #16a34a;
+
+  /* Rouge - Erreur (couleurs nationales) */
+  --color-burkina-rouge: #dc2626;
+}
+
+/* Styles de base personnalisés */
+@layer base {
+  body {
+    @apply bg-notaire-50 text-notaire-900;
+  }
+
+  /* Scrollbar personnalisée */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-notaire-100;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-notaire-300 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-notaire-400;
+  }
+}
+
+/* Classes utilitaires personnalisées */
+@layer utilities {
+  .gradient-notaire {
+    background: linear-gradient(135deg, var(--color-notaire-800) 0%, var(--color-notaire-600) 100%);
+  }
+
+  .gradient-or {
+    background: linear-gradient(135deg, var(--color-or-500) 0%, var(--color-or-400) 100%);
+  }
+
+  .shadow-notaire {
+    box-shadow: 0 4px 14px 0 rgba(30, 58, 138, 0.15);
+  }
+
+  .shadow-notaire-lg {
+    box-shadow: 0 10px 40px -10px rgba(30, 58, 138, 0.3);
+  }
+
+  .border-notaire {
+    border-color: var(--color-notaire-800);
+  }
+
+  .text-gradient {
+    background: linear-gradient(135deg, var(--color-notaire-800), var(--color-notaire-600));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+}
+
+/* Animation pour le loader */
+@keyframes pulse-notaire {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.animate-pulse-notaire {
+  animation: pulse-notaire 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
