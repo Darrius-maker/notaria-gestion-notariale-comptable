@@ -21,7 +21,7 @@ export const api = {
     if (!res.ok) throw new Error(await res.text());
     return res.json();
   },
-  put: async (url: string, data: any) => {
+  put: async (url: string, data: any = {}) => {
     const res = await fetch(url, {
       method: "PUT",
       headers: getHeaders(),
