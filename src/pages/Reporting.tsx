@@ -401,13 +401,13 @@ export default function Reporting() {
               Actes par Catégorie
             </h3>
             <div className="space-y-3">
-              {Object.entries(reportingData.actesByCategorie).map(
+              {((Object.entries(reportingData.actesByCategorie) as [string, number][])).map(
                 ([categorie, count]) => {
-                  const total = Object.values(reportingData.actesByCategorie).reduce(
+                  const total = (Object.values(reportingData.actesByCategorie) as number[]).reduce(
                     (a, b) => a + b,
                     0
                   );
-                  const percentage = total > 0 ? ((count / total) * 100).toFixed(1) : 0;
+                  const percentage = total > 0 ? ((count / total) * 100).toFixed(1) : "0";
                   return (
                     <div key={categorie}>
                       <div className="flex items-center justify-between text-sm mb-1">
@@ -440,12 +440,12 @@ export default function Reporting() {
           >
             <h3 className="font-semibold text-gray-900 mb-4">Actes par Statut</h3>
             <div className="space-y-3">
-              {Object.entries(globalStats.actesByStatut).map(([statut, count]) => {
-                const total = Object.values(globalStats.actesByStatut).reduce(
+              {((Object.entries(globalStats.actesByStatut) as [string, number][])).map(([statut, count]) => {
+                const total = (Object.values(globalStats.actesByStatut) as number[]).reduce(
                   (a, b) => a + b,
                   0
                 );
-                const percentage = total > 0 ? ((count / total) * 100).toFixed(1) : 0;
+                const percentage = total > 0 ? ((count / total) * 100).toFixed(1) : "0";
                 return (
                   <div key={statut}>
                     <div className="flex items-center justify-between text-sm mb-1">

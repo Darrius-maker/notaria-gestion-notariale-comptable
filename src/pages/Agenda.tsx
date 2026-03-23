@@ -541,7 +541,7 @@ export default function Agenda() {
                   value={formData.participants}
                   onChange={(e) => setFormData({
                     ...formData,
-                    participants: Array.from(e.target.selectedOptions, o => o.value)
+                    participants: Array.from((e.target as HTMLSelectElement).selectedOptions, o => o.value)
                   })}
                   className="w-full bg-[#F5F5F5] border border-[#141414] p-3 text-xs h-24"
                 >
