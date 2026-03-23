@@ -427,13 +427,15 @@ function IntervenantCard({
   roleInfo,
   onEdit,
   onRemove,
-  readOnly
+  readOnly,
+  key
 }: {
   intervenant: Intervenant;
   roleInfo: typeof ROLES_DISPONIBLES[0] | undefined;
   onEdit: () => void;
   onRemove: () => void;
   readOnly: boolean;
+  key?: any;
 }) {
   return (
     <div className="bg-white border border-[#141414]/10 p-3 flex items-center gap-3 hover:border-[#141414]/30 transition-colors">
