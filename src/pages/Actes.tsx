@@ -281,6 +281,7 @@ export default function ActesPage() {
             value={filterStatut}
             onChange={(e) => setFilterStatut(e.target.value)}
             className="bg-white border-2 border-notaire-200 rounded-xl py-3 px-4 text-sm focus:outline-none focus:border-notaire-500"
+            aria-label="Filtrer par statut"
           >
             <option value="">Tous les statuts</option>
             {Object.entries(STATUT_CONFIG).map(([key, { label }]) => (
@@ -292,6 +293,7 @@ export default function ActesPage() {
             value={filterCategorie}
             onChange={(e) => setFilterCategorie(e.target.value)}
             className="bg-white border-2 border-notaire-200 rounded-xl py-3 px-4 text-sm focus:outline-none focus:border-notaire-500"
+            aria-label="Filtrer par catégorie"
           >
             <option value="">Toutes catégories</option>
             {Object.entries(CATEGORIE_LABELS).map(([key, label]) => (
@@ -324,7 +326,7 @@ export default function ActesPage() {
         <div className="bg-red-50 border border-red-200 rounded-xl p-4 flex items-start gap-3">
           <AlertCircle className="w-5 h-5 text-red-600 mt-0.5" />
           <p className="text-sm text-red-700">{error}</p>
-          <button onClick={() => setError("")} className="ml-auto">
+          <button onClick={() => setError("")} className="ml-auto" aria-label="Fermer le message d'erreur">
             <X className="w-4 h-4 text-red-600" />
           </button>
         </div>
@@ -416,7 +418,7 @@ export default function ActesPage() {
             >
               <div className="p-6 border-b border-notaire-100 bg-gradient-to-r from-notaire-50 to-white flex items-center justify-between">
                 <h2 className="font-serif italic text-2xl text-notaire-900">Nouvel Acte</h2>
-                <button onClick={() => { setShowCreateModal(false); resetForm(); }} className="p-2 hover:bg-notaire-100 rounded-lg">
+                <button onClick={() => { setShowCreateModal(false); resetForm(); }} className="p-2 hover:bg-notaire-100 rounded-lg" aria-label="Fermer le modal de création">
                   <X className="w-5 h-5 text-notaire-500" />
                 </button>
               </div>
@@ -424,8 +426,9 @@ export default function ActesPage() {
               <div className="flex-1 overflow-y-auto p-6 space-y-6">
                 <div className="grid grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-xs font-semibold text-notaire-700 mb-2">Type d'acte *</label>
+                    <label htmlFor="typeActe" className="block text-xs font-semibold text-notaire-700 mb-2">Type d'acte *</label>
                     <select
+                      id="typeActe"
                       value={formData.typeActe}
                       onChange={(e) => setFormData({ ...formData, typeActe: e.target.value })}
                       className="w-full bg-notaire-50 border-2 border-notaire-200 rounded-lg p-3 text-sm focus:outline-none focus:border-notaire-500"
@@ -437,8 +440,9 @@ export default function ActesPage() {
                     </select>
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold text-notaire-700 mb-2">Dossier associé *</label>
+                    <label htmlFor="dossierId" className="block text-xs font-semibold text-notaire-700 mb-2">Dossier associé *</label>
                     <select
+                      id="dossierId"
                       value={formData.dossierId}
                       onChange={(e) => setFormData({ ...formData, dossierId: e.target.value })}
                       className="w-full bg-notaire-50 border-2 border-notaire-200 rounded-lg p-3 text-sm focus:outline-none focus:border-notaire-500"
@@ -489,7 +493,9 @@ export default function ActesPage() {
                   <div className="space-y-3">
                     {formData.parties.map((party, index) => (
                       <div key={index} className="flex items-center gap-3 p-3 bg-notaire-50 rounded-lg">
+                        <label htmlFor={`tiers-${index}`} className="sr-only">Tiers pour la partie {index + 1}</label>
                         <select
+                          id={`tiers-${index}`}
                           value={party.tiersId}
                           onChange={(e) => updateParty(index, "tiersId", e.target.value)}
                           className="flex-1 bg-white border border-notaire-200 rounded-lg p-2 text-sm"
@@ -515,7 +521,7 @@ export default function ActesPage() {
                           />
                           Signature
                         </label>
-                        <button onClick={() => removeParty(index)} className="p-1 hover:bg-red-100 rounded">
+                        <button onClick={() => removeParty(index)} className="p-1 hover:bg-red-100 rounded" aria-label="Supprimer cette partie">
                           <X className="w-4 h-4 text-red-500" />
                         </button>
                       </div>
@@ -568,7 +574,7 @@ export default function ActesPage() {
                       </span>
                     </div>
                   </div>
-                  <button onClick={() => setShowDetailModal(false)} className="p-2 hover:bg-notaire-100 rounded-lg">
+                  <button onClick={() => setShowDetailModal(false)} className="p-2 hover:bg-notaire-100 rounded-lg" aria-label="Fermer le modal de détails">
                     <X className="w-5 h-5 text-notaire-500" />
                   </button>
                 </div>
