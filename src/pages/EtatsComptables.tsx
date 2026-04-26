@@ -166,6 +166,7 @@ export default function EtatsComptables() {
               type="date"
               value={dateDebut}
               onChange={(e) => setDateDebut(e.target.value)}
+              aria-label="Date de début"
               className="bg-[#F5F5F5] border border-[#141414]/20 px-3 py-2 text-xs"
             />
             <span className="text-xs opacity-40">à</span>
@@ -173,6 +174,7 @@ export default function EtatsComptables() {
               type="date"
               value={dateFin}
               onChange={(e) => setDateFin(e.target.value)}
+              aria-label="Date de fin"
               className="bg-[#F5F5F5] border border-[#141414]/20 px-3 py-2 text-xs"
             />
           </div>
@@ -237,7 +239,7 @@ export default function EtatsComptables() {
                     </div>
                     <div>
                       <p className="text-[9px] uppercase tracking-widest opacity-40">Total Crédits</p>
-                      <p className="text-2xl font-bold text-emerald-600">{parseFloat(resume.totalCredits).toLocaleString('fr-FR')} €</p>
+                      <p className="text-2xl font-bold text-emerald-600">{parseFloat(resume.totalCredits).toLocaleString('fr-FR')} XOF</p>
                     </div>
                   </div>
                 </div>
@@ -249,7 +251,7 @@ export default function EtatsComptables() {
                     </div>
                     <div>
                       <p className="text-[9px] uppercase tracking-widest opacity-40">Total Débits</p>
-                      <p className="text-2xl font-bold text-red-600">{parseFloat(resume.totalDebits).toLocaleString('fr-FR')} €</p>
+                      <p className="text-2xl font-bold text-red-600">{parseFloat(resume.totalDebits).toLocaleString('fr-FR')} XOF</p>
                     </div>
                   </div>
                 </div>
@@ -261,7 +263,7 @@ export default function EtatsComptables() {
                     </div>
                     <div>
                       <p className="text-[9px] uppercase tracking-widest opacity-60">Solde Période</p>
-                      <p className="text-2xl font-bold">{parseFloat(resume.solde).toLocaleString('fr-FR')} €</p>
+                      <p className="text-2xl font-bold">{parseFloat(resume.solde).toLocaleString('fr-FR')} XOF</p>
                     </div>
                   </div>
                   <p className="text-[9px] uppercase opacity-40">{resume.nombreEcritures} écritures</p>
@@ -284,16 +286,16 @@ export default function EtatsComptables() {
                         <div className="flex-1 grid grid-cols-3 gap-4">
                           <div className="text-right">
                             <p className="text-[9px] uppercase opacity-40">Crédits</p>
-                            <p className="text-sm font-mono text-emerald-600">+{parseFloat(cat.credit).toLocaleString('fr-FR')} €</p>
+                            <p className="text-sm font-mono text-emerald-600">+{parseFloat(cat.credit).toLocaleString('fr-FR')} XOF</p>
                           </div>
                           <div className="text-right">
                             <p className="text-[9px] uppercase opacity-40">Débits</p>
-                            <p className="text-sm font-mono text-red-600">-{parseFloat(cat.debit).toLocaleString('fr-FR')} €</p>
+                            <p className="text-sm font-mono text-red-600">-{parseFloat(cat.debit).toLocaleString('fr-FR')} XOF</p>
                           </div>
                           <div className="text-right">
                             <p className="text-[9px] uppercase opacity-40">Solde</p>
                             <p className={`text-sm font-mono font-bold ${solde >= 0 ? 'text-emerald-600' : 'text-red-600'}`}>
-                              {solde >= 0 ? '+' : ''}{solde.toLocaleString('fr-FR')} €
+                              {solde >= 0 ? '+' : ''}{solde.toLocaleString('fr-FR')} XOF
                             </p>
                           </div>
                         </div>
@@ -328,8 +330,8 @@ export default function EtatsComptables() {
                           {format(new Date(day.date), 'EEEE dd MMMM yyyy', { locale: fr })}
                         </p>
                         <div className="flex gap-4 text-[9px] font-mono">
-                          <span className="text-emerald-600">+{day.totalCredit} €</span>
-                          <span className="text-red-600">-{day.totalDebit} €</span>
+                          <span className="text-emerald-600">+{day.totalCredit} XOF</span>
+                          <span className="text-red-600">-{day.totalDebit} XOF</span>
                         </div>
                       </div>
 
@@ -353,7 +355,7 @@ export default function EtatsComptables() {
                             <div className={`text-right font-mono font-bold ${
                               entry.sens === "CREDIT" ? "text-emerald-600" : "text-red-600"
                             }`}>
-                              {entry.sens === "CREDIT" ? "+" : "-"}{entry.montant} €
+                              {entry.sens === "CREDIT" ? "+" : "-"}{entry.montant} XOF
                             </div>
                           </div>
                         ))}
@@ -405,13 +407,13 @@ export default function EtatsComptables() {
                         </span>
                       </div>
                       <div className="p-3 text-right font-mono text-sm text-red-600">
-                        {parseFloat(d.debit).toLocaleString('fr-FR')} €
+                        {parseFloat(d.debit).toLocaleString('fr-FR')} XOF
                       </div>
                       <div className="p-3 text-right font-mono text-sm text-emerald-600">
-                        {parseFloat(d.credit).toLocaleString('fr-FR')} €
+                        {parseFloat(d.credit).toLocaleString('fr-FR')} XOF
                       </div>
                       <div className={`p-3 text-right font-mono text-sm font-bold ${solde >= 0 ? 'text-emerald-600' : 'text-red-600'}`}>
-                        {solde >= 0 ? '+' : ''}{solde.toLocaleString('fr-FR')} €
+                        {solde >= 0 ? '+' : ''}{solde.toLocaleString('fr-FR')} XOF
                       </div>
                     </div>
                   );
@@ -424,13 +426,13 @@ export default function EtatsComptables() {
                   <p className="text-[10px] uppercase font-bold">Total</p>
                 </div>
                 <div className="p-3 text-right font-mono text-sm">
-                  {balance.reduce((s, d) => s + parseFloat(d.debit), 0).toLocaleString('fr-FR')} €
+                  {balance.reduce((s, d) => s + parseFloat(d.debit), 0).toLocaleString('fr-FR')} XOF
                 </div>
                 <div className="p-3 text-right font-mono text-sm">
-                  {balance.reduce((s, d) => s + parseFloat(d.credit), 0).toLocaleString('fr-FR')} €
+                  {balance.reduce((s, d) => s + parseFloat(d.credit), 0).toLocaleString('fr-FR')} XOF
                 </div>
                 <div className="p-3 text-right font-mono text-sm font-bold">
-                  {balance.reduce((s, d) => s + parseFloat(d.solde), 0).toLocaleString('fr-FR')} €
+                  {balance.reduce((s, d) => s + parseFloat(d.solde), 0).toLocaleString('fr-FR')} XOF
                 </div>
               </div>
             </div>

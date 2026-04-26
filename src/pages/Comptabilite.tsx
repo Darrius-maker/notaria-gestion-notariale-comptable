@@ -168,7 +168,7 @@ export default function Comptabilite() {
             <div>
               <p className="text-xs font-semibold text-notaire-500">Solde Dossier Sélectionné</p>
               <p className={`text-2xl font-serif italic ${parseFloat(solde) >= 0 ? 'text-emerald-600' : 'text-red-600'}`}>
-                {solde} €
+                {solde} XOF
               </p>
             </div>
           </div>
@@ -177,6 +177,7 @@ export default function Comptabilite() {
             value={selectedDossier}
             onChange={(e) => setSelectedDossier(e.target.value)}
             className="bg-white border-2 border-notaire-200 rounded-xl p-4 text-sm font-semibold text-notaire-900 focus:outline-none focus:border-notaire-500"
+            aria-label="Sélectionner un dossier"
           >
             <option value="">Sélectionner un dossier...</option>
             {dossiers.map(d => (
@@ -199,7 +200,7 @@ export default function Comptabilite() {
         <div className="bg-red-50 border border-red-200 rounded-xl p-4 flex items-start gap-3">
           <AlertCircle className="w-5 h-5 text-red-600 mt-0.5" />
           <p className="text-sm text-red-700 font-medium">{error}</p>
-          <button onClick={() => setError("")} className="ml-auto p-1 hover:bg-red-100 rounded-lg transition-colors">
+          <button onClick={() => setError("")} className="ml-auto p-1 hover:bg-red-100 rounded-lg transition-colors" aria-label="Fermer le message d'erreur">
             <X className="w-4 h-4 text-red-600" />
           </button>
         </div>
@@ -264,10 +265,10 @@ export default function Comptabilite() {
                   </span>
                 </div>
                 <div className="p-4 text-sm font-mono text-right text-red-600">
-                  {item.sens === 'DEBIT' ? `${parseFloat(item.montant.toString()).toFixed(2)} €` : "-"}
+                  {item.sens === 'DEBIT' ? `${parseFloat(item.montant.toString()).toFixed(2)} XOF` : "-"}
                 </div>
                 <div className="p-4 text-sm font-mono text-right text-emerald-600">
-                  {item.sens === 'CREDIT' ? `${parseFloat(item.montant.toString()).toFixed(2)} €` : "-"}
+                  {item.sens === 'CREDIT' ? `${parseFloat(item.montant.toString()).toFixed(2)} XOF` : "-"}
                 </div>
                 <div className="p-4 flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                   <button
@@ -297,10 +298,10 @@ export default function Comptabilite() {
             <div className="p-4 text-sm font-bold text-notaire-900">Total</div>
             <div className="p-4"></div>
             <div className="p-4 text-sm font-mono text-right font-bold text-red-600">
-              {ecritures.filter(e => e.sens === 'DEBIT').reduce((sum, e) => sum + parseFloat(e.montant.toString()), 0).toFixed(2)} €
+              {ecritures.filter(e => e.sens === 'DEBIT').reduce((sum, e) => sum + parseFloat(e.montant.toString()), 0).toFixed(2)} XOF
             </div>
             <div className="p-4 text-sm font-mono text-right font-bold text-emerald-600">
-              {ecritures.filter(e => e.sens === 'CREDIT').reduce((sum, e) => sum + parseFloat(e.montant.toString()), 0).toFixed(2)} €
+              {ecritures.filter(e => e.sens === 'CREDIT').reduce((sum, e) => sum + parseFloat(e.montant.toString()), 0).toFixed(2)} XOF
             </div>
             <div className="p-4"></div>
           </div>
@@ -313,14 +314,15 @@ export default function Comptabilite() {
           <div className="bg-white rounded-2xl w-full max-w-lg shadow-notaire-lg overflow-hidden">
             <div className="p-6 border-b border-notaire-100 bg-gradient-to-r from-notaire-50 to-white flex items-center justify-between">
               <h2 className="font-serif italic text-2xl text-notaire-900">{editMode ? 'Modifier l\'Écriture' : 'Saisie Comptable'}</h2>
-              <button onClick={() => { setShowEntryModal(false); resetForm(); }} className="p-2 hover:bg-notaire-100 rounded-lg transition-colors">
+              <button onClick={() => { setShowEntryModal(false); resetForm(); }} className="p-2 hover:bg-notaire-100 rounded-lg transition-colors" aria-label="Fermer la modal">
                 <X className="w-5 h-5 text-notaire-500" />
               </button>
             </div>
             <form onSubmit={handleSubmit} className="p-8 space-y-6">
               <div>
-                <label className="block text-xs font-semibold text-notaire-700 mb-2">Dossier</label>
+                <label htmlFor="modal-dossier" className="block text-xs font-semibold text-notaire-700 mb-2">Dossier</label>
                 <select
+                  id="modal-dossier"
                   required
                   value={formData.dossierId}
                   onChange={(e) => setFormData({...formData, dossierId: e.target.value})}
@@ -334,7 +336,7 @@ export default function Comptabilite() {
 
               <div className="grid grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-xs font-semibold text-notaire-700 mb-2">Montant (EUR)</label>
+                  <label className="block text-xs font-semibold text-notaire-700 mb-2">Montant (XOF)</label>
                   <input
                     type="number"
                     step="0.01"
@@ -385,8 +387,7 @@ export default function Comptabilite() {
                   required
                   value={formData.categorie}
                   onChange={(e) => setFormData({...formData, categorie: e.target.value})}
-                  className="w-full bg-notaire-50 border-2 border-notaire-200 rounded-lg p-3 text-sm text-notaire-900 focus:outline-none focus:border-notaire-500"
-                >
+                  className="w-full bg-notaire-50 border-2 border-notaire-200 rounded-lg p-3 text-sm text-notaire-900 focus:outline-none focus:border-notaire-500"                  aria-label="Sélectionner une catégorie"                >
                   <option value="FONDS_CLIENTS">Fonds Clients</option>
                   <option value="HONORAIRES">Honoraires</option>
                   <option value="TAXES">Taxes</option>

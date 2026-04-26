@@ -63,6 +63,7 @@ export default function Pagination({
             value={itemsPerPage}
             onChange={(e) => onItemsPerPageChange(Number(e.target.value))}
             className="bg-notaire-50 border border-notaire-200 rounded-lg px-3 py-1.5 text-xs text-notaire-700 focus:outline-none focus:border-notaire-500"
+            title="Éléments par page"
           >
             <option value={10}>10 / page</option>
             <option value={25}>25 / page</option>

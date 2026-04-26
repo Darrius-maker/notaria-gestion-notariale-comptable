@@ -224,6 +224,7 @@ export default function Agenda() {
           <button
             onClick={() => setCurrentMonth(subMonths(currentMonth, 1))}
             className="p-2 border border-[#141414] hover:bg-[#141414]/5"
+            aria-label="Mois précédent"
           >
             <ChevronLeft className="w-4 h-4" />
           </button>
@@ -233,6 +234,7 @@ export default function Agenda() {
           <button
             onClick={() => setCurrentMonth(addMonths(currentMonth, 1))}
             className="p-2 border border-[#141414] hover:bg-[#141414]/5"
+            aria-label="Mois suivant"
           >
             <ChevronRight className="w-4 h-4" />
           </button>
@@ -374,7 +376,7 @@ export default function Agenda() {
                   </span>
                   <h3 className="font-serif italic text-lg mt-2">{selectedRdv.titre}</h3>
                 </div>
-                <button onClick={() => setSelectedRdv(null)}>
+                <button onClick={() => setSelectedRdv(null)} aria-label="Fermer les détails">
                   <X className="w-4 h-4 opacity-40 hover:opacity-100" />
                 </button>
               </div>
@@ -446,8 +448,9 @@ export default function Agenda() {
             </div>
             <div className="p-8 space-y-6">
               <div>
-                <label className="block text-[10px] uppercase font-bold opacity-40 mb-2">Titre</label>
+                <label htmlFor="agenda-titre" className="block text-[10px] uppercase font-bold opacity-40 mb-2">Titre</label>
                 <input
+                  id="agenda-titre"
                   type="text"
                   value={formData.titre}
                   onChange={(e) => setFormData({ ...formData, titre: e.target.value })}
@@ -458,8 +461,9 @@ export default function Agenda() {
 
               <div className="grid grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-[10px] uppercase font-bold opacity-40 mb-2">Type</label>
+                  <label htmlFor="agenda-type" className="block text-[10px] uppercase font-bold opacity-40 mb-2">Type</label>
                   <select
+                    id="agenda-type"
                     value={formData.type}
                     onChange={(e) => setFormData({ ...formData, type: e.target.value as any })}
                     className="w-full bg-[#F5F5F5] border border-[#141414] p-3 text-xs"
@@ -470,8 +474,9 @@ export default function Agenda() {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-[10px] uppercase font-bold opacity-40 mb-2">Statut</label>
+                  <label htmlFor="agenda-statut" className="block text-[10px] uppercase font-bold opacity-40 mb-2">Statut</label>
                   <select
+                    id="agenda-statut"
                     value={formData.statut}
                     onChange={(e) => setFormData({ ...formData, statut: e.target.value as any })}
                     className="w-full bg-[#F5F5F5] border border-[#141414] p-3 text-xs"
@@ -485,16 +490,19 @@ export default function Agenda() {
 
               <div className="grid grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-[10px] uppercase font-bold opacity-40 mb-2">Date début</label>
+                  <label htmlFor="agenda-date-debut" className="block text-[10px] uppercase font-bold opacity-40 mb-2">Date début</label>
                   <div className="flex gap-2">
                     <input
+                      id="agenda-date-debut"
                       type="date"
                       value={formData.dateDebut}
                       onChange={(e) => setFormData({ ...formData, dateDebut: e.target.value })}
                       className="flex-1 bg-[#F5F5F5] border border-[#141414] p-3 text-xs"
                     />
                     <input
+                      id="agenda-heure-debut"
                       type="time"
+                      aria-label="Heure de début"
                       value={formData.heureDebut}
                       onChange={(e) => setFormData({ ...formData, heureDebut: e.target.value })}
                       className="w-24 bg-[#F5F5F5] border border-[#141414] p-3 text-xs"
@@ -502,16 +510,19 @@ export default function Agenda() {
                   </div>
                 </div>
                 <div>
-                  <label className="block text-[10px] uppercase font-bold opacity-40 mb-2">Date fin</label>
+                  <label htmlFor="agenda-date-fin" className="block text-[10px] uppercase font-bold opacity-40 mb-2">Date fin</label>
                   <div className="flex gap-2">
                     <input
+                      id="agenda-date-fin"
                       type="date"
                       value={formData.dateFin}
                       onChange={(e) => setFormData({ ...formData, dateFin: e.target.value })}
                       className="flex-1 bg-[#F5F5F5] border border-[#141414] p-3 text-xs"
                     />
                     <input
+                      id="agenda-heure-fin"
                       type="time"
+                      aria-label="Heure de fin"
                       value={formData.heureFin}
                       onChange={(e) => setFormData({ ...formData, heureFin: e.target.value })}
                       className="w-24 bg-[#F5F5F5] border border-[#141414] p-3 text-xs"
@@ -521,8 +532,9 @@ export default function Agenda() {
               </div>
 
               <div>
-                <label className="block text-[10px] uppercase font-bold opacity-40 mb-2">Dossier associé</label>
+                <label htmlFor="agenda-dossier" className="block text-[10px] uppercase font-bold opacity-40 mb-2">Dossier associé</label>
                 <select
+                  id="agenda-dossier"
                   value={formData.dossierId}
                   onChange={(e) => setFormData({ ...formData, dossierId: e.target.value })}
                   className="w-full bg-[#F5F5F5] border border-[#141414] p-3 text-xs"
@@ -535,8 +547,9 @@ export default function Agenda() {
               </div>
 
               <div>
-                <label className="block text-[10px] uppercase font-bold opacity-40 mb-2">Participants</label>
+                <label htmlFor="agenda-participants" className="block text-[10px] uppercase font-bold opacity-40 mb-2">Participants</label>
                 <select
+                  id="agenda-participants"
                   multiple
                   value={formData.participants}
                   onChange={(e) => setFormData({
@@ -551,10 +564,10 @@ export default function Agenda() {
                 </select>
                 <p className="text-[9px] opacity-40 mt-1">Ctrl+clic pour sélectionner plusieurs participants</p>
               </div>
-
               <div>
-                <label className="block text-[10px] uppercase font-bold opacity-40 mb-2">Lieu</label>
+                <label htmlFor="agenda-lieu" className="block text-[10px] uppercase font-bold opacity-40 mb-2">Lieu</label>
                 <input
+                  id="agenda-lieu"
                   type="text"
                   value={formData.lieu}
                   onChange={(e) => setFormData({ ...formData, lieu: e.target.value })}
@@ -564,8 +577,9 @@ export default function Agenda() {
               </div>
 
               <div>
-                <label className="block text-[10px] uppercase font-bold opacity-40 mb-2">Notes</label>
+                <label htmlFor="agenda-notes" className="block text-[10px] uppercase font-bold opacity-40 mb-2">Notes</label>
                 <textarea
+                  id="agenda-notes"
                   value={formData.notes}
                   onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
                   className="w-full bg-[#F5F5F5] border border-[#141414] p-3 text-xs h-20"

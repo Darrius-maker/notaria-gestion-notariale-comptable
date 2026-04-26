@@ -230,7 +230,7 @@ export default function Facturation() {
         >
           <AlertCircle className="w-4 h-4 text-red-600" />
           <p className="text-xs text-red-700">{error}</p>
-          <button onClick={() => setError("")} className="ml-auto"><X className="w-4 h-4 text-red-600" /></button>
+          <button onClick={() => setError("")} className="ml-auto" aria-label="Fermer le message d'erreur"><X className="w-4 h-4 text-red-600" /></button>
         </motion.div>
       )}
 
@@ -243,7 +243,7 @@ export default function Facturation() {
             </div>
             <p className="text-[9px] uppercase tracking-widest opacity-40">Total Facturé</p>
           </div>
-          <p className="text-2xl font-bold">{parseFloat(stats.totalFacture).toLocaleString('fr-FR')} €</p>
+          <p className="text-2xl font-bold">{parseFloat(stats.totalFacture).toLocaleString('fr-FR')} XOF</p>
         </div>
 
         <div className="bg-white border border-[#141414] p-4">
@@ -253,7 +253,7 @@ export default function Facturation() {
             </div>
             <p className="text-[9px] uppercase tracking-widest opacity-40">Total Encaissé</p>
           </div>
-          <p className="text-2xl font-bold text-emerald-600">{parseFloat(stats.totalPaye).toLocaleString('fr-FR')} €</p>
+          <p className="text-2xl font-bold text-emerald-600">{parseFloat(stats.totalPaye).toLocaleString('fr-FR')} XOF</p>
         </div>
 
         <div className="bg-white border border-[#141414] p-4">
@@ -263,7 +263,7 @@ export default function Facturation() {
             </div>
             <p className="text-[9px] uppercase tracking-widest opacity-40">En Attente</p>
           </div>
-          <p className="text-2xl font-bold text-amber-600">{parseFloat(stats.totalEnAttente).toLocaleString('fr-FR')} €</p>
+          <p className="text-2xl font-bold text-amber-600">{parseFloat(stats.totalEnAttente).toLocaleString('fr-FR')} XOF</p>
         </div>
 
         <div className="bg-white border border-[#141414] p-4">
@@ -290,6 +290,7 @@ export default function Facturation() {
           />
         </div>
         <select
+          aria-label="Filtrer par statut"
           value={filterStatut}
           onChange={(e) => setFilterStatut(e.target.value)}
           className="bg-white border border-[#141414]/20 px-4 py-3 text-xs focus:outline-none focus:border-[#141414]"
@@ -354,10 +355,10 @@ export default function Facturation() {
                     </div>
 
                     <div className="text-right mr-4">
-                      <p className="text-lg font-bold">{parseFloat(facture.totalTTC).toLocaleString('fr-FR')} €</p>
+                      <p className="text-lg font-bold">{parseFloat(facture.totalTTC).toLocaleString('fr-FR')} XOF</p>
                       {facture.statut === "PARTIELLEMENT_PAYEE" && (
                         <p className="text-[9px] text-amber-600">
-                          Reste: {parseFloat(facture.montantRestant).toLocaleString('fr-FR')} €
+                          Reste: {parseFloat(facture.montantRestant).toLocaleString('fr-FR')} XOF
                         </p>
                       )}
                     </div>
@@ -431,8 +432,9 @@ export default function Facturation() {
                   {/* Client & Dossier */}
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-[10px] uppercase font-bold opacity-40 mb-2">Client *</label>
+                      <label htmlFor="facturation-client" className="block text-[10px] uppercase font-bold opacity-40 mb-2">Client *</label>
                       <select
+                        id="facturation-client"
                         value={formData.tiersId}
                         onChange={(e) => setFormData({ ...formData, tiersId: e.target.value })}
                         required
@@ -445,8 +447,9 @@ export default function Facturation() {
                       </select>
                     </div>
                     <div>
-                      <label className="block text-[10px] uppercase font-bold opacity-40 mb-2">Dossier (optionnel)</label>
+                      <label htmlFor="facturation-dossier" className="block text-[10px] uppercase font-bold opacity-40 mb-2">Dossier (optionnel)</label>
                       <select
+                        id="facturation-dossier"
                         value={formData.dossierId}
                         onChange={(e) => setFormData({ ...formData, dossierId: e.target.value })}
                         className="w-full bg-[#F5F5F5] border border-[#141414] p-3 text-sm"
@@ -460,8 +463,9 @@ export default function Facturation() {
                   </div>
 
                   <div>
-                    <label className="block text-[10px] uppercase font-bold opacity-40 mb-2">Date d'échéance *</label>
+                    <label htmlFor="facturation-dateEcheance" className="block text-[10px] uppercase font-bold opacity-40 mb-2">Date d'échéance *</label>
                     <input
+                      id="facturation-dateEcheance"
                       type="date"
                       value={formData.dateEcheance}
                       onChange={(e) => setFormData({ ...formData, dateEcheance: e.target.value })}
@@ -488,8 +492,9 @@ export default function Facturation() {
                         <div key={index} className="bg-[#F5F5F5] border border-[#141414]/10 p-4">
                           <div className="grid grid-cols-12 gap-3">
                             <div className="col-span-5">
-                              <label className="block text-[8px] uppercase opacity-40 mb-1">Description</label>
+                              <label htmlFor={`ligne-description-${index}`} className="block text-[8px] uppercase opacity-40 mb-1">Description</label>
                               <input
+                                id={`ligne-description-${index}`}
                                 type="text"
                                 value={ligne.description}
                                 onChange={(e) => updateLigne(index, 'description', e.target.value)}
@@ -499,8 +504,9 @@ export default function Facturation() {
                               />
                             </div>
                             <div className="col-span-2">
-                              <label className="block text-[8px] uppercase opacity-40 mb-1">Type</label>
+                              <label htmlFor={`ligne-type-${index}`} className="block text-[8px] uppercase opacity-40 mb-1">Type</label>
                               <select
+                                id={`ligne-type-${index}`}
                                 value={ligne.type}
                                 onChange={(e) => updateLigne(index, 'type', e.target.value)}
                                 className="w-full bg-white border border-[#141414]/20 p-2 text-xs"
@@ -512,8 +518,9 @@ export default function Facturation() {
                               </select>
                             </div>
                             <div className="col-span-1">
-                              <label className="block text-[8px] uppercase opacity-40 mb-1">Qté</label>
+                              <label htmlFor={`ligne-quantite-${index}`} className="block text-[8px] uppercase opacity-40 mb-1">Qté</label>
                               <input
+                                id={`ligne-quantite-${index}`}
                                 type="number"
                                 value={ligne.quantite}
                                 onChange={(e) => updateLigne(index, 'quantite', parseInt(e.target.value))}
@@ -522,8 +529,9 @@ export default function Facturation() {
                               />
                             </div>
                             <div className="col-span-2">
-                              <label className="block text-[8px] uppercase opacity-40 mb-1">Prix HT</label>
+                              <label htmlFor={`ligne-prix-${index}`} className="block text-[8px] uppercase opacity-40 mb-1">Prix HT</label>
                               <input
+                                id={`ligne-prix-${index}`}
                                 type="number"
                                 value={ligne.prixUnitaire}
                                 onChange={(e) => updateLigne(index, 'prixUnitaire', e.target.value)}
@@ -534,8 +542,9 @@ export default function Facturation() {
                               />
                             </div>
                             <div className="col-span-1">
-                              <label className="block text-[8px] uppercase opacity-40 mb-1">TVA %</label>
+                              <label htmlFor={`ligne-tva-${index}`} className="block text-[8px] uppercase opacity-40 mb-1">TVA %</label>
                               <input
+                                id={`ligne-tva-${index}`}
                                 type="number"
                                 value={ligne.tauxTVA}
                                 onChange={(e) => updateLigne(index, 'tauxTVA', parseFloat(e.target.value))}
@@ -548,6 +557,7 @@ export default function Facturation() {
                                   type="button"
                                   onClick={() => removeLigne(index)}
                                   className="p-1.5 text-red-600 hover:bg-red-50"
+                                  aria-label="Supprimer la ligne"
                                 >
                                   <X className="w-4 h-4" />
                                 </button>
@@ -563,9 +573,9 @@ export default function Facturation() {
                   <div className="bg-[#141414] text-white p-4">
                     <div className="flex justify-end">
                       <div className="text-right space-y-1">
-                        <p className="text-[10px] uppercase opacity-60">Total HT: <span className="font-bold text-sm ml-2">{totals.ht} €</span></p>
-                        <p className="text-[10px] uppercase opacity-60">TVA: <span className="font-bold text-sm ml-2">{totals.tva} €</span></p>
-                        <p className="text-xs uppercase">Total TTC: <span className="font-bold text-xl ml-2">{totals.ttc} €</span></p>
+                        <p className="text-[10px] uppercase opacity-60">Total HT: <span className="font-bold text-sm ml-2">{totals.ht} XOF</span></p>
+                        <p className="text-[10px] uppercase opacity-60">TVA: <span className="font-bold text-sm ml-2">{totals.tva} XOF</span></p>
+                        <p className="text-xs uppercase">Total TTC: <span className="font-bold text-xl ml-2">{totals.ttc} XOF</span></p>
                       </div>
                     </div>
                   </div>
@@ -656,8 +666,8 @@ export default function Facturation() {
                           <p className="text-[9px] opacity-40">{ligne.type} • Qté: {ligne.quantite}</p>
                         </div>
                         <div className="text-right">
-                          <p className="text-sm font-bold">{parseFloat(ligne.montantTTC).toFixed(2)} € TTC</p>
-                          <p className="text-[9px] opacity-40">{parseFloat(ligne.montantHT).toFixed(2)} € HT + {ligne.tauxTVA}% TVA</p>
+                          <p className="text-sm font-bold">{parseFloat(ligne.montantTTC).toFixed(2)} XOF TTC</p>
+                          <p className="text-[9px] opacity-40">{parseFloat(ligne.montantHT).toFixed(2)} XOF HT + {ligne.tauxTVA}% TVA</p>
                         </div>
                       </div>
                     ))}
@@ -669,14 +679,14 @@ export default function Facturation() {
                   <div className="flex justify-between items-end">
                     <div>
                       <p className="text-[10px] uppercase opacity-60">Montant payé</p>
-                      <p className="text-lg font-bold text-emerald-400">{parseFloat(selectedFacture.montantPaye).toFixed(2)} €</p>
+                      <p className="text-lg font-bold text-emerald-400">{parseFloat(selectedFacture.montantPaye).toFixed(2)} XOF</p>
                     </div>
                     <div className="text-right">
-                      <p className="text-[10px] uppercase opacity-60">Total HT: {parseFloat(selectedFacture.totalHT).toFixed(2)} €</p>
-                      <p className="text-[10px] uppercase opacity-60">TVA: {parseFloat(selectedFacture.totalTVA).toFixed(2)} €</p>
-                      <p className="text-xl font-bold">{parseFloat(selectedFacture.totalTTC).toFixed(2)} € TTC</p>
+                      <p className="text-[10px] uppercase opacity-60">Total HT: {parseFloat(selectedFacture.totalHT).toFixed(2)} XOF</p>
+                      <p className="text-[10px] uppercase opacity-60">TVA: {parseFloat(selectedFacture.totalTVA).toFixed(2)} XOF</p>
+                      <p className="text-xl font-bold">{parseFloat(selectedFacture.totalTTC).toFixed(2)} XOF TTC</p>
                       {parseFloat(selectedFacture.montantRestant) > 0 && (
-                        <p className="text-[10px] uppercase text-amber-400">Reste à payer: {parseFloat(selectedFacture.montantRestant).toFixed(2)} €</p>
+                        <p className="text-[10px] uppercase text-amber-400">Reste à payer: {parseFloat(selectedFacture.montantRestant).toFixed(2)} XOF</p>
                       )}
                     </div>
                   </div>
@@ -696,7 +706,7 @@ export default function Facturation() {
                               <Check className="w-4 h-4 text-emerald-600" />
                             </div>
                             <div>
-                              <p className="text-sm font-bold">{parseFloat(p.montant).toFixed(2)} €</p>
+                              <p className="text-sm font-bold">{parseFloat(p.montant).toFixed(2)} XOF</p>
                               <p className="text-[9px] opacity-40">
                                 {format(new Date(p.date), 'dd/MM/yyyy', { locale: fr })} • {p.mode}
                                 {p.reference && ` • Réf: ${p.reference}`}
@@ -753,12 +763,13 @@ export default function Facturation() {
               <form onSubmit={handleAddPaiement} className="p-6 space-y-4">
                 <div className="bg-[#F5F5F5] p-3 border border-[#141414]/10">
                   <p className="text-[10px] uppercase opacity-40">Reste à payer</p>
-                  <p className="text-2xl font-bold">{parseFloat(selectedFacture.montantRestant).toFixed(2)} €</p>
+                  <p className="text-2xl font-bold">{parseFloat(selectedFacture.montantRestant).toFixed(2)} XOF</p>
                 </div>
 
                 <div>
-                  <label className="block text-[10px] uppercase font-bold opacity-40 mb-2">Montant *</label>
+                  <label htmlFor="facturation-paiement-montant" className="block text-[10px] uppercase font-bold opacity-40 mb-2">Montant *</label>
                   <input
+                    id="facturation-paiement-montant"
                     type="number"
                     value={paiementForm.montant}
                     onChange={(e) => setPaiementForm({ ...paiementForm, montant: e.target.value })}
@@ -772,8 +783,9 @@ export default function Facturation() {
 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-[10px] uppercase font-bold opacity-40 mb-2">Mode de paiement *</label>
+                    <label htmlFor="facturation-paiement-mode" className="block text-[10px] uppercase font-bold opacity-40 mb-2">Mode de paiement *</label>
                     <select
+                      id="facturation-paiement-mode"
                       value={paiementForm.mode}
                       onChange={(e) => setPaiementForm({ ...paiementForm, mode: e.target.value as ModePaiement })}
                       className="w-full bg-[#F5F5F5] border border-[#141414] p-3 text-sm"
@@ -786,8 +798,9 @@ export default function Facturation() {
                     </select>
                   </div>
                   <div>
-                    <label className="block text-[10px] uppercase font-bold opacity-40 mb-2">Date</label>
+                    <label htmlFor="facturation-paiement-date" className="block text-[10px] uppercase font-bold opacity-40 mb-2">Date</label>
                     <input
+                      id="facturation-paiement-date"
                       type="date"
                       value={paiementForm.date}
                       onChange={(e) => setPaiementForm({ ...paiementForm, date: e.target.value })}

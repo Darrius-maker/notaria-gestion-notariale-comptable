@@ -196,7 +196,7 @@ export default function Dashboard() {
           </div>
           <p className="text-xs font-semibold text-notaire-300 mb-1">Fonds Tiers</p>
           <p className="text-3xl font-serif italic">
-            {parseFloat(stats?.comptabilite.totalFonds || "0").toLocaleString('fr-FR')} €
+            {parseFloat(stats?.comptabilite.totalFonds || "0").toLocaleString('fr-FR')} XOF
           </p>
           <p className="mt-3 text-xs text-notaire-400">{stats?.comptabilite.nombreEcritures || 0} écritures</p>
         </motion.div>
@@ -216,7 +216,7 @@ export default function Dashboard() {
           </div>
           <p className="text-xs font-semibold text-notaire-500 mb-1">Facturation</p>
           <p className="text-3xl font-serif italic text-notaire-900">
-            {parseFloat(stats?.facturation.enAttente || "0").toLocaleString('fr-FR')} €
+            {parseFloat(stats?.facturation.enAttente || "0").toLocaleString('fr-FR')} XOF
           </p>
           <p className="mt-3 text-xs text-notaire-400">en attente de paiement</p>
         </motion.div>
@@ -241,7 +241,7 @@ export default function Dashboard() {
               const height = (parseFloat(month.revenue) / maxRevenue) * 100;
               return (
                 <div key={i} className="flex-1 flex flex-col items-center gap-2">
-                  <div className="w-full bg-notaire-50 rounded-t-lg relative" style={{ height: '160px' }}>
+                  <div className="w-full bg-notaire-50 rounded-t-lg relative h-40">
                     <motion.div
                       initial={{ height: 0 }}
                       animate={{ height: `${height}%` }}
@@ -251,7 +251,7 @@ export default function Dashboard() {
                   </div>
                   <div className="text-center">
                     <p className="text-xs font-semibold text-notaire-700">{month.month}</p>
-                    <p className="text-[10px] text-notaire-400">{parseFloat(month.revenue).toLocaleString('fr-FR')} €</p>
+                    <p className="text-[10px] text-notaire-400">{parseFloat(month.revenue).toLocaleString('fr-FR')} XOF</p>
                   </div>
                 </div>
               );

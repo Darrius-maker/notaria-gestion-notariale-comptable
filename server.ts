@@ -2627,7 +2627,7 @@ async function startServer() {
 
       // Find the party
       const partyIndex = acte.parties.findIndex(
-        p => p.tiersId.toString() === tiersId
+        p => p.tiersId?.toString() === tiersId
       );
 
       if (partyIndex === -1) {
